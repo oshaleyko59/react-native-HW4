@@ -1,5 +1,7 @@
 import { useState } from "react";
-import {	View } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+
+import { View } from "react-native";
 import { MainHeader } from "../../components/headers";
 import { AuthMainBtn, AuthSecondaryBtn } from "../../components/buttons";
 import PasswordInput from "../../components/inputs/PasswordInput";
@@ -9,6 +11,8 @@ import Avatar from "./Avatar";
 import { styles } from "../../common/styles";
 
 export default function RegistrationForm({ signUp }) {
+  const navigation = useNavigation();
+
 	const [name, setName] = useState("");
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
@@ -42,10 +46,15 @@ export default function RegistrationForm({ signUp }) {
 					<AuthSecondaryBtn
 						title="Увійти"
 						hint="Вже є акаунт?"
-						onPress={() => console.info("@RegistrationForm>> 'Login' pressed")}
+						onPress={() => {
+							console.info("@RegistrationForm>> 'Login' pressed");
+							//TODO:  Передача параметрів
+							navigation.navigate("Login", { sessionId: 45, userId: "22e24" })
+						}}
 					/>
 				</View>
 			)}
 		</View>
 	);
 }
+

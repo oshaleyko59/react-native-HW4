@@ -7,10 +7,10 @@ const signUp = (name, email, password) => {
 	);
 };
 
-export default function RegistrationScreen() {
+export default function RegistrationScreen({navigation}) {
 	return (
 		<AuthScreen>
-			<RegistrationForm signUp={signUp} />
+			<RegistrationForm  navigation={navigation} signUp={signUp} />
 		</AuthScreen>
 	);
 }

@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useNavigation, useRoute } from "@react-navigation/native";
+
 import { View } from "react-native";
 import { MainHeader } from "../../components/headers";
 import { AuthMainBtn, AuthSecondaryBtn } from "../../components/buttons";
@@ -7,6 +9,15 @@ import EmailInput from "../../components/inputs/EmailInput";
 import { styles } from "../../common/styles";
 
 export default function LoginForm({ signIn }) {
+	const navigation = useNavigation();
+		const {
+		params //: { userId }
+	} = useRoute(); //TODO:  Приймання параметрів
+	console.debug("params>>", params);
+	function handleSignIn() {
+		signIn(email, password);
+		navigation.navigate("Home");
+	}
 	const [kbdStatus, setKbdStatus] = useState(false);
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
@@ -24,15 +35,17 @@ export default function LoginForm({ signIn }) {
 			/>
 			{!kbdStatus && (
 				<View style={{ paddingTop: 8, paddingBottom: 144 }}>
-					<AuthMainBtn title="Увійти" onPress={() => signIn(email, password)} />
+					<AuthMainBtn title="Увійти" onPress={handleSignIn} />
 					<AuthSecondaryBtn
 						title="Зареєструватися"
 						hint="Немає акаунту?"
-						onPress={() => console.info("@LoginForm>> 'Register' pressed")}
+						onPress={() => {
+							console.info("@LoginForm>> 'Register' pressed");
+							navigation.navigate("Registration");
+						}}
 					/>
 				</View>
 			)}
 		</View>
 	);
 }
-

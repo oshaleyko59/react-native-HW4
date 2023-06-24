@@ -2,15 +2,15 @@
 рекомендація:
 #   + спільний для скрінів функціонал(обгортки, підключення шрифтів) виносити в спільний для них компонент
 Завдання​
-- Створити екран CreatePostsScreen
-- Створити екран CommentsScreen
-- Створити екран ProfileScreen
-- Створити екран MapScreen
-- Створити екран Home
-- Підключити в проект навігацію.
+#   + Створити екран CreatePostsScreen
+#   + Створити екран CommentsScreen
+#   + Створити екран ProfileScreen
+#   + Створити екран MapScreen
+#   + Створити екран Home
+#   + Підключити в проект навігацію.
 - Додати в проект переходи між екранами LoginScreen, RegistrationScreen за допомогою компонента createStackNavigator
-    - З RegistrationScreen можна перейти на LoginScreen, натиснувши на текст Увійти
-    - З LoginScreen можна перейти на RegistrationScreen, натиснувши на текст Зареєструватися
+    #   + З RegistrationScreen можна перейти на LoginScreen, натиснувши на текст Увійти
+    #   + З LoginScreen можна перейти на RegistrationScreen, натиснувши на текст Зареєструватися
     - Після сабміту в LoginScreen, RegistrationScreen перекидає на Home, де відразу показується екран PostsScreen
 - Підключити нижню навігацію, використовуючи createBottomTabNavigator
 - У нижній навігації створити 3 переходи.
@@ -24,8 +24,6 @@
         Макет компонента CreatePostsScreen при переході на компонент Homework (Copy) (Copy)
         Макет компонента ProfileScreen Homework (Copy) (Copy)
         Інтерактивний приклад навігації в застосунку Homework (Copy) (Copy)
-https://www.udemy.com/course/react-native-the-practical-guide/learn/lecture/31197384#notes
-https://www.udemy.com/course/react-native-the-practical-guide/learn/lecture/31197384#notes
 
 # react-native-HW-3:
 Завдання​
