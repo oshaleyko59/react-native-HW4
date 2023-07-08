@@ -1,4 +1,5 @@
 import { View } from "react-native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { LogOut } from "react-native-feather";
 import { Header2 } from "../../components/headers";
 import BottomBar from "./BottomBar";
@@ -7,7 +8,10 @@ import { COLORS } from "../../common/constants";
 import { styles } from "../../common/styles";
 
 export default function PostsScreen() {
-	const user = { email: "e-mail@example.com", name: "Natali Romanova" };
+	const {
+		params: { user },
+	} = useRoute(); //TODO:  to use for navigation to private routes?
+	console.debug("PostsScreen params>>user", user);
 
 	return (
 		<View
