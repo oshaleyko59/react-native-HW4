@@ -7,7 +7,7 @@ import {
 } from "react-native";
 import { bkgImage } from "../common/constants";
 
-export default function AuthScreen({ children }) {
+export default function AuthScreenWrapper({ children }) {
 	return (
 		<TouchableWithoutFeedback onPress={Keyboard.dismiss} style={{ flex: 1 }}>
 			<ImageBackground source={bkgImage} style={styles.imageBkg}>

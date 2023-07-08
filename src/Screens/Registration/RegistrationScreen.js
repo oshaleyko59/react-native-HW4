@@ -1,4 +1,4 @@
-import AuthScreen from "../AuthScreen";
+import AuthScreenWrapper from "../AuthScreenWrapper";
 import RegistrationForm from "./RegistrationForm";
 
 const signUp = (name, email, password) => {
@@ -9,9 +9,9 @@ const signUp = (name, email, password) => {
 
 export default function RegistrationScreen({navigation}) {
 	return (
-		<AuthScreen>
+		<AuthScreenWrapper>
 			<RegistrationForm  navigation={navigation} signUp={signUp} />
-		</AuthScreen>
+		</AuthScreenWrapper>
 	);
 }
 

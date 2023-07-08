@@ -2,7 +2,7 @@ import { View, Text, Pressable, StyleSheet } from "react-native";
 import { Plus } from "react-native-feather";
 import { COLORS } from "../common/constants";
 
-export function PlainTextBtn({ title, onPress }) {
+function PlainTextBtn({ title, onPress }) {
 	return (
 		<Pressable
 			onPress={onPress}
@@ -87,7 +87,8 @@ const styles = StyleSheet.create({
 		borderRadius: 100,
 		alignItems: "center",
 		padding: 16,
-	},
+  },
+
 	plusBtn: {
 		height: 40,
 		width: 70,
@@ -99,19 +100,28 @@ const styles = StyleSheet.create({
 	accented: {
 		color: COLORS.secondaryText,
 		backgroundColor: COLORS.accent,
-	},
+  },
+
 	pressed: {
 		opacity: 0.5,
-	},
+  },
+
 	btnTitle: {
 		color: COLORS.secondaryText,
 		fontSize: 16,
 		fontFamily: "Roboto-Regular",
   },
+
   secondaryBtnTitle: {
 		color: COLORS.linkText,
 		fontSize: 16,
 		lineHeight: 19,
 		fontFamily: "Roboto-Regular",
-	},
+  },
+  
+  underlined: {
+   // fontStyle: 'italic',
+    textDecorationStyle: 'solid',
+    textDecorationLine: 'underline'
+  }
 });

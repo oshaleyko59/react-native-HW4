@@ -11,6 +11,13 @@ import Avatar from "./Avatar";
 import { styles } from "../../common/styles";
 
 export default function RegistrationForm({ signUp }) {
+
+	function handleSignUp() {
+		signUp(name, email, password);
+    navigation.navigate("Home", { userId: 'registered1234' });
+	}
+
+
   const navigation = useNavigation();
 
 	const [name, setName] = useState("");
@@ -41,15 +48,15 @@ export default function RegistrationForm({ signUp }) {
 				<View style={{ paddingTop: 8, paddingBottom: 78 }}>
 					<AuthMainBtn
 						title="Зареєстуватися"
-						onPress={() => signUp(name, email, password)}
+						onPress={handleSignUp}
 					/>
 					<AuthSecondaryBtn
 						title="Увійти"
 						hint="Вже є акаунт?"
 						onPress={() => {
 							console.info("@RegistrationForm>> 'Login' pressed");
-							//TODO:  Передача параметрів
-							navigation.navigate("Login", { sessionId: 45, userId: "22e24" })
+							//TODO:  ??? Передача параметрів, { sessionId: 45, userId: "22e24" }
+              navigation.navigate("Login");
 						}}
 					/>
 				</View>

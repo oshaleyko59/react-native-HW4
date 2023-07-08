@@ -1,5 +1,5 @@
 import LoginForm from "./LoginForm";
-import AuthScreen from "../AuthScreen";
+import AuthScreenWrapper from "../AuthScreenWrapper";
 
 const signIn = (email, password) => {
 	console.info(
@@ -9,9 +9,9 @@ const signIn = (email, password) => {
 
 export default function LoginScreen() {
 	return (
-		<AuthScreen>
+		<AuthScreenWrapper>
 			<LoginForm signIn={signIn} />
-		</AuthScreen>
+		</AuthScreenWrapper>
 	);
 }
 

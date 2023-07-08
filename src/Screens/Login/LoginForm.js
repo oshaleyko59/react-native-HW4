@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigation, useRoute } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 
 import { View } from "react-native";
 import { MainHeader } from "../../components/headers";
@@ -9,15 +9,17 @@ import EmailInput from "../../components/inputs/EmailInput";
 import { styles } from "../../common/styles";
 
 export default function LoginForm({ signIn }) {
-	const navigation = useNavigation();
-		const {
+/* 		const {
 		params //: { userId }
 	} = useRoute(); //TODO:  Приймання параметрів
-	console.debug("params>>", params);
+  console.debug("params>>", params); */
+
 	function handleSignIn() {
 		signIn(email, password);
-		navigation.navigate("Home");
-	}
+    navigation.navigate("Home", {userId:'logged1234'});
+  }
+
+	const navigation = useNavigation();
 	const [kbdStatus, setKbdStatus] = useState(false);
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
