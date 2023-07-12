@@ -1,7 +1,7 @@
 {
 	"expo": {
-		"name": "react-native-hw2",
-		"slug": "react-native-hw2",
+		"name": "react-native-hw4",
+		"slug": "react-native-hw4",
 		"version": "1.0.0",
 		"orientation": "portrait",
 		"icon": "./assets/icon.png",
@@ -13,7 +13,7 @@
 		},
 		"assetBundlePatterns": ["**/*"],
 		"ios": {
-			"supportsTablet": true
+			"supportsTablet": false
 		},
 		"android": {
 			"softwareKeyboardLayoutMode": "pan",

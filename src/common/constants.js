@@ -9,5 +9,6 @@ export const COLORS = {
 	mainBkg: "#FFFFFF",
 	inactiveBkg: "#F6F6F6",
 	borderGray: "#E8E8E8",
+	icon: "#212121CC",
 };
 

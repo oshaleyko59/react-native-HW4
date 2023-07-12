@@ -1,7 +1,12 @@
 import { View, Image, Text, StyleSheet } from "react-native";
-import { COLORS } from "../../common/constants";
+import { COLORS } from "../common/constants";
 
 export default function UserCard({ user }) {
+  if (!user) {
+    console.log("UserCard>>no user");
+    return <></>
+  };
+
 	return (
 		<View style={styles.container}>
 			{user.image ? (

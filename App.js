@@ -1,24 +1,46 @@
+import { useState, useLayoutEffect } from "react";
 import { useFonts } from "expo-font";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-//imports for navigation
-
-//-required in App for expo, to use react-navigation stack,
-//-(along with react-native-screens TODO: ???
-//- & react-native-safe-area-context  TODO: ???)
 import "react-native-gesture-handler";
-
-//-wrapper, like BrowserRouter
 import { NavigationContainer } from "@react-navigation/native";
-//-for navigation tasks - returns Screens and Navigator
-import { createStackNavigator } from "@react-navigation/stack";
+import { useStackNavigator } from "./src/hooks/useStackNavigator";
 
-//screens
-import RegistrationScreen from "./src/Screens/Registration/RegistrationScreen";
-import LoginScreen from "./src/Screens/Login/LoginScreen";
-import PostsScreen from "./src/Screens/Posts/PostsScreen";
-import Home from "./src/Screens/Home";
+import AuthContextProvider, { useAuthContext } from "./src/store/auth-context";
+import Loading from "./src/components/ui/Loading";
 
-const MainStack = createStackNavigator(); //groups Screens inside main Navigator
+//separated to get rid of Login flickering
+function Root() {
+	const { getStackNavigator } = useStackNavigator();
+	console.log("Root>>getStackNavigator", getStackNavigator);
+	const [isLoading, setIsLoading] = useState(true);
+	const { authenticate, isAuthenticated } = useAuthContext();
+
+	useLayoutEffect(() => {
+		async function fetchUser() {
+			try {
+				const storedUser = await AsyncStorage.getItem("user");
+
+				if (storedUser != null) {
+					authenticate(JSON.parse(storedUser));
+				}
+				console.log("storedUser>>isAuthenticated", storedUser, isAuthenticated);
+			} catch (e) {
+				console.log("fetchUser>> ERROR", e.message);
+			} finally {
+				setIsLoading(false);
+			}
+		}
+
+		fetchUser();
+	}, []);
+
+	return isLoading ? (
+		<Loading msg="Loading..." />
+	) : (
+		<NavigationContainer>{getStackNavigator()}</NavigationContainer>
+	);
+}
 
 export default function App() {
 	const [fontsLoaded] = useFonts({
@@ -28,20 +50,13 @@ export default function App() {
 	});
 
 	if (!fontsLoaded) {
-		return null;
+		return <Loading msg="Loading..." />;
 	}
 
+	console.log("App>>");
 	return (
-		<NavigationContainer>
-			<MainStack.Navigator initialRouteName="Login">{/* render starts with Login */}
-				<MainStack.Screen name="Registration" component={RegistrationScreen} />
-				<MainStack.Screen name="Login" component={LoginScreen} />
-				<MainStack.Screen
-					name="Home"
-					component={Home}
-					options={{ title: "Start screen" }}
-        /><MainStack.Screen name='Posts' component={PostsScreen} />
-			</MainStack.Navigator>
-		</NavigationContainer>
+		<AuthContextProvider>
+			<Root />
+		</AuthContextProvider>
 	);
 }

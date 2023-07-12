@@ -24,7 +24,8 @@ export default function StyledTextInput({
 						: { borderColor: COLORS.borderGray },
 				]}
 				autoComplete={autoComplete}
-				autoCapitalize={autoCapitalize}
+        autoCapitalize={autoCapitalize}
+        autoCorrect={false}
 				keyboardType={keyboardType}
 				placeholder={placeholder}
 				secureTextEntry={secureTextEntry}
