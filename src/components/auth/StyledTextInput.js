@@ -47,7 +47,6 @@ export default function StyledTextInput({
 		</View>
 	);
 }
-//	console.debug("end Editing");
 
 const styles = StyleSheet.create({
   input: {

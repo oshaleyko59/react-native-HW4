@@ -46,7 +46,6 @@ export default function LoginForm({ signIn }) {
 					title="Зареєструватися"
 					hint="Немає акаунту?"
 					onPress={() => {
-						console.info("@LoginForm>> 'Register' pressed");
 						navigation.navigate("Registration");
 					}}
 				/>
@@ -61,7 +60,7 @@ export default function LoginForm({ signIn }) {
 						title="Зареєструватися"
 						hint="Немає акаунту?"
 						onPress={() => {
-							console.info("@LoginForm>> 'Register' pressed");
+							con sole.info("@LoginForm>> 'Register' pressed");
 							navigation.navigate("Registration");
 						}}
 					/>

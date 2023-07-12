@@ -2,10 +2,6 @@ import { View, Image, Text, StyleSheet } from "react-native";
 import { COLORS } from "../common/constants";
 
 export default function UserCard({ user }) {
-  if (!user) {
-    console.log("UserCard>>no user");
-    return <></>
-  };
 
 	return (
 		<View style={styles.container}>
@@ -43,17 +39,20 @@ const styles = StyleSheet.create({
     alignItems:'center'
 	},
 	inner: {
-		justifyContent: "center",
+		marginLeft: 8, //justifyContent: "center",
 	},
 
 	name: {
 		fontFamily: "Roboto-Bold",
 		fontSize: 13,
-		lineHeight: 15,
+    lineHeight: 15,
+    color: COLORS.mainText
 	},
 	email: {
 		fontFamily: "Roboto-Regular",
 		fontSize: 11,
-		lineHeight: 13,
+    lineHeight: 13,
+    color: COLORS.mainGrey
 	},
 });
+

@@ -7,13 +7,19 @@ import HomeScreen from "../Screens/Protected/HomeScreen";
 import MapScreen from "../Screens/Protected/MapScreen";
 import CommentsScreen from "../Screens/Protected/CommentsScreen";
 import LogoutBtn from "../components/ui/LogoutBtn";
+import Loading from "../components/ui/Loading";
 import { COLORS } from "../common/constants";
 
-const MainStack = createStackNavigator(); //groups Screens inside main Navigator
+const MainStack = createStackNavigator();
 
 export function useStackNavigator() {
+	function Busy() {
+		console.log("RENDER Loading");
+		return <Loading msg="Loading..." />;
+	}
+
 	function AuthStack() {
-		console.log("AuthStack>>");
+		console.log("RENDER AuthStack");
 		return (
 			<MainStack.Navigator screenOptions={{ headerShown: false }}>
 				<MainStack.Screen name="Login" component={LoginScreen} />
@@ -22,20 +28,22 @@ export function useStackNavigator() {
 		);
 	}
 
-	function ProtectedStack() {
-		console.log("ProtectedStack>>");
-    const { logout } = useAuthContext();
-
+	function ProtectedStack({ onLogout }) {
+		console.log("RENDER ProtectedStack");
 		return (
 			<MainStack.Navigator
 				screenOptions={{
 					headerTitleAlign: "center",
 					headerStyle: styles.header,
 					headerTitleStyle: styles.headerTitle,
-					headerRight: () => <LogoutBtn onPress={logout} />,
+					headerRight: () => <LogoutBtn onPress={onLogout} />,
 				}}
 			>
-				<MainStack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }}/>
+				<MainStack.Screen
+					name="Home"
+					component={HomeScreen}
+					options={{ headerShown: false }}
+				/>
 				<MainStack.Screen
 					name="Map"
 					component={MapScreen}
@@ -50,14 +58,23 @@ export function useStackNavigator() {
 		);
 	}
 
-	//separated to use auth context
-	function getStackNavigator() {
-		const { isAuthenticated } = useAuthContext();
-		console.log("Navigation>>isAuthenticated", isAuthenticated);
-		if (isAuthenticated) return <ProtectedStack />;
-		return <AuthStack />;
+	//NB! transferring isLoading down here in props allowed
+	//to get rid of error of inconsistent use of hooks
+	function getStackNavigator(isLoading) {
+		const { isAuthenticated, logout } = useAuthContext();
+/* 		console.debug(
+			`getStackNavigator>>isAuthenticated=${isAuthenticated}/isLoading=${isLoading}`
+		); */
+
+		return isLoading ? (<Busy/>
+		) : isAuthenticated ? (
+			<ProtectedStack onLogout={logout} />
+		) : (
+			<AuthStack />
+		);
 	}
-	return {getStackNavigator};
+
+	return { getStackNavigator };
 }
 
 const styles = StyleSheet.create({

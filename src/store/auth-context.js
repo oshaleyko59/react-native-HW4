@@ -3,7 +3,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const AuthContext = createContext({
 	isAuthenticated: false,
-	authenticate: (token) => {},
+	authenticate: (user) => {},
 	logout: () => {},
 	getUser: () => {},
 });
@@ -14,40 +14,76 @@ export default function AuthContextProvider({ children }) {
 	const [user, setUser] = useState(null);
 
 	function getUser() {
-		console.log("getUser>>");
 		return user;
 	}
 
-	async function authenticate(user) {
-		console.log("authenticate>>", user);
-		try {
-			if (!user) { //TODO: validate data
-				console.log(`User ${user} cannot be authenticated!`);
-				throw new Error("ERROR");
-      }
-      user.password = '';
-			console.log("setUser>>JSON", user, JSON.stringify(user));
-			setUser(user);
+	function validateEmail(email) {
+		if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
+			return true;
+		}
 
-			await AsyncStorage.setItem("user", JSON.stringify(user));
+		alert("You have entered an invalid email address!");
+		return false;
+	}
+
+	function validatePassword(password) {
+		return password.length > 6;
+	}
+
+	function validate(user) {
+		//TODO:  move to inputs?
+		let { name, email, password } = user;
+		if (email) email = email.trim();
+		if (name) name = name.trim();
+		if (password) password = password.trim();
+
+		if (
+			!user ||
+			!validateEmail(email) ||
+			(password && !validatePassword(password))
+		) {
+			console.error(`User ${JSON.stringify(user)} is not validated!`);
+			throw new Error("ERROR");
+		}
+		return { name, email, password };
+	}
+
+	async function authenticate(user) {
+		try {
+			const credentials = validate(user);
+			credentials.password = "";
+			setUser(credentials);
+			await AsyncStorage.setItem("user", JSON.stringify(credentials));
+			//console.debug(`authenticate>>user ${JSON.stringify(credentials)} done`);
+			return credentials;
 		} catch (e) {
 			setUser(null);
-			throw new Error(`User ${user} not authenticated!`);
+			throw new Error(`User ${JSON.stringify(user)} not authenticated!`);
 		}
 	}
 
-	function logout() {
+	async function logout() {
 		setUser(null);
-		AsyncStorage.removeItem("user");
-		console.log("logout>>");
+		try {
+			await AsyncStorage.removeItem("user");
+		//	console.debug(`logout>> done`);
+		} catch (e) {
+			console.error(e.message);
+		}
 	}
 
 	const value = {
 		isAuthenticated: !!user, //make it real true
-		authenticate: authenticate,
-		logout: logout,
+		authenticate,
+		logout,
 		getUser,
 	};
+
+/* 	console.debug(
+		`AuthContextProvider>>user=${value.user} isAuthenticated=${
+			value.isAuthenticated
+		}(!!user=${!!value.user})`
+	); */
 
 	return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }

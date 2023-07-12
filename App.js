@@ -11,22 +11,26 @@ import Loading from "./src/components/ui/Loading";
 
 //separated to get rid of Login flickering
 function Root() {
-	const { getStackNavigator } = useStackNavigator();
-	console.log("Root>>getStackNavigator", getStackNavigator);
-	const [isLoading, setIsLoading] = useState(true);
 	const { authenticate, isAuthenticated } = useAuthContext();
+	const [isLoading, setIsLoading] = useState(true);
+	const { getStackNavigator } = useStackNavigator();
 
 	useLayoutEffect(() => {
 		async function fetchUser() {
 			try {
 				const storedUser = await AsyncStorage.getItem("user");
 
-				if (storedUser != null) {
-					authenticate(JSON.parse(storedUser));
+				if (!storedUser) {
+					return null;
 				}
-				console.log("storedUser>>isAuthenticated", storedUser, isAuthenticated);
+				const res = await authenticate(JSON.parse(storedUser));
+/* 				console.debug(
+					`fetchUser>>storedUser=${JSON.stringify(
+						res
+					)} isAuthenticated=${isAuthenticated}`
+				); */
 			} catch (e) {
-				console.log("fetchUser>> ERROR", e.message);
+				console.error("fetchUser>> ERROR", e.message);
 			} finally {
 				setIsLoading(false);
 			}
@@ -35,10 +39,8 @@ function Root() {
 		fetchUser();
 	}, []);
 
-	return isLoading ? (
-		<Loading msg="Loading..." />
-	) : (
-		<NavigationContainer>{getStackNavigator()}</NavigationContainer>
+	return (
+		<NavigationContainer>{getStackNavigator(isLoading)}</NavigationContainer>
 	);
 }
 

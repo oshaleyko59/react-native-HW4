@@ -33,8 +33,7 @@ export default function RegistrationForm() {
 		};
 	}, []);
 
-	// const kbdheight = useKeyboardHeight();
-	console.log("keyboardHeight", keyboardHeight);
+	// const kbdheight = useKeyboardHeight();	console.log("keyboardHeight", keyboardHeight);
 
 	const userCtx = useContext(UserContext);
 	function handleSignUp() {

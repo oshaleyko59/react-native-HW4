@@ -1,6 +1,5 @@
 //import { useState } from "react";
 import {
-	Alert,
 	StyleSheet,
 	View,
 	ImageBackground,
@@ -18,7 +17,7 @@ function AuthContent({ modeLogin, onAuthenticate }) {
 
 	function submitHandler(credentials) {
 		let { name, email, password } = credentials;
-		console.log("credentials>>", credentials); //TODO:
+	//TODO:	validate somewherer... console.log("credentials>>", credentials);
 		onAuthenticate({ name, email, password });
 	}
 
@@ -96,5 +95,4 @@ const styles = StyleSheet.create({
 	});
  */
 /*
-  		email = email.trim();
-			password = password.trim(); */
+  	*/

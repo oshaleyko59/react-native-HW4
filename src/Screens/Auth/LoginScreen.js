@@ -1,20 +1,3 @@
-/* import LoginForm from "../../components/auth/LoginForm";
-import AuthScreenWrapper from "../../components/auth/AuthScreenWrapper";
-
-const signIn = (email, password) => {
-	console.info(
-		`HW3@LoginScreen>>"Login" pressed for "${email}": with password "${password}"`
-	);
-};
-
-export default function LoginScreen() {
-	return (
-		<AuthScreenWrapper>
-			<LoginForm signIn={signIn} />
-		</AuthScreenWrapper>
-	);
-}
- */
 import { useState } from 'react';
 import { Alert } from 'react-native';
 
@@ -32,7 +15,7 @@ function LoginScreen() {
     try {
       await authenticate({ email, password });
     } catch (error) {
-      console.log('error', error);
+      console.error('error', error);
       Alert.alert(
         'Authentication failed!',
         'Could not log you in. Please check your credentials!'
