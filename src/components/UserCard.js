@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
     alignItems:'center'
 	},
 	inner: {
-		marginLeft: 8, //justifyContent: "center",
+		marginLeft: 8, 
 	},
 
 	name: {

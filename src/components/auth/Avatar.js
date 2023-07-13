@@ -1,21 +1,21 @@
-import { Plus } from "react-native-feather";
+import { Plus, X } from "react-native-feather";
 import { View, StyleSheet } from "react-native";
 import { COLORS } from "../../common/constants";
 
-export default function Avatar() {
+export default function Avatar({ modeAdd}) {
 	return (
 		<View style={styles.holder}>
 			<View style={styles.circled}>
-				<Plus
-					stroke={COLORS.accent}
-					fill="#fff"
-					width={20}
-					height={20}
-				/>
+				{modeAdd ? (
+					<Plus stroke={COLORS.accent} fill="#fff" width={20} height={20} />
+				) : (
+					<X stroke={COLORS.accent} fill="#fff" width={20} height={20} />
+				)}
 			</View>
 		</View>
 	);
 }
+//TODO: pressable icon
 
 const styles = StyleSheet.create({
 	holder: {

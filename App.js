@@ -9,9 +9,8 @@ import { useStackNavigator } from "./src/hooks/useStackNavigator";
 import AuthContextProvider, { useAuthContext } from "./src/store/auth-context";
 import Loading from "./src/components/ui/Loading";
 
-//separated to get rid of Login flickering
 function Root() {
-	const { authenticate, isAuthenticated } = useAuthContext();
+	const { authenticate } = useAuthContext();
 	const [isLoading, setIsLoading] = useState(true);
 	const { getStackNavigator } = useStackNavigator();
 

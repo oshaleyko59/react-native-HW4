@@ -62,11 +62,12 @@ export function useStackNavigator() {
 	//to get rid of error of inconsistent use of hooks
 	function getStackNavigator(isLoading) {
 		const { isAuthenticated, logout } = useAuthContext();
-/* 		console.debug(
+		/* console.debug(
 			`getStackNavigator>>isAuthenticated=${isAuthenticated}/isLoading=${isLoading}`
 		); */
 
-		return isLoading ? (<Busy/>
+		return isLoading ? (
+			<Busy />
 		) : isAuthenticated ? (
 			<ProtectedStack onLogout={logout} />
 		) : (
